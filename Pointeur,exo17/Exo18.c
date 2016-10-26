@@ -16,17 +16,19 @@ Tab echange(Tab T,int a,int b) {
 }
 
 
-int alea(int n) {
-	return rand()%20;
+int alea(int k) {
+	return rand()%k;
 	
 }
 
-struct tableau rand_int(int n) {       ;          // => intialise un tableau aléatoirement
+
+
+struct tableau rand_int(int n,int k) {       ;          // => intialise un tableau aléatoirement
 	Tab T;
 	T.taille=n;
 	int i;
 	for(i=0;i<n;i++) {
-		T.tab[i]=alea(20);
+		T.tab[i]=alea(k);
 	}
 	return T;
 }
@@ -108,6 +110,7 @@ Tab decale_droite(Tab T,int d) {
 }
 
 
+
 void affiche_tableau(Tab T) {
 	int i;
 	for(i=0;i<T.taille;i++) {                       
@@ -119,6 +122,7 @@ void affiche_tableau(Tab T) {
 }
 
 Tab insere_trie(Tab T,int n) {
+	T.taille=T.taille+1;
 	int i,d;
 	d=0;
 	for(i=0;T.tab[i]<n;i++) {
@@ -147,6 +151,46 @@ Tab inversertab(Tab T) {
 }
 
 
+Tab suppr_hasard(Tab T) {  //a modifier si vraiment nombre aleatoire
+	int i,s;
+	s=alea(T.taille-1);
+	printf("sup=%d\n",s);
+	for(i=s;i<T.taille;i++) {
+		T=echange(T,i,i+1);
+	}
+	T.taille=T.taille-1;
+	return T;
+}
+
+Tab suppr_elm(Tab T,int s) {
+	int i;
+	for(i=s;i<T.taille;i++) {
+		T=echange(T,i,i+1);
+	}
+	T.taille=T.taille-1;
+	return T;
+	
+}
+
+Tab elim_doublon(Tab T) {
+	int i,j;
+	for(i=0;i<T.taille;i++) {
+		j=i+1;
+		while(j<T.taille) {
+				if(T.tab[i]==T.tab[j]) {
+					T=suppr_elm(T,j);
+					j=i+1;
+				}
+				else j++;
+			}
+			
+		}
+		return T;
+}
+	
+	
+
+
 int main() {
 	//Tab T;
 	//T.taille= 10;
@@ -171,8 +215,8 @@ int main() {
 	int i,n;
 	n=10;
 	srand(time(NULL));
-	monTab= rand_int(n);
-	affiche_tableau(monTab);
+	monTab= rand_int(n,20);
+	//affiche_tableau(monTab);
 
 	/*int mult;
 	mult=mult_tableau(monTab);
@@ -183,12 +227,12 @@ int main() {
 	min=valeur_minimale(monTab,0);
 	printf("min=%d",min);
 	
-	/*Tab Ttrie;
+	Tab Ttrie;
 	Ttrie=trie_bulle(monTab);
 	affiche_tableau(Ttrie);
-	* */
 	
 	
+	/*
 	Tab Ttrie,Tinv;
 	Ttrie=trie_selection(monTab);
 	affiche_tableau(Ttrie);	printf("\n");
@@ -199,6 +243,17 @@ int main() {
 	printf("\n");
 	Tinv=inversertab(Ttrie);
 	affiche_tableau(Tinv);
+	
+	printf("\n");
+	monTab=suppr_hasard(monTab);
+	affiche_tableau(monTab);
+	*/
+	
+	printf("\n");
+	Tab sansD;
+	sansD=elim_doublon(Ttrie);
+	affiche_tableau(sansD);
+	
 	
 	
 	  return 0;
