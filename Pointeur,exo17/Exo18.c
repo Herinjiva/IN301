@@ -172,7 +172,7 @@ Tab suppr_elm(Tab T,int s) {
 	
 }
 
-Tab elim_doublon(Tab T) {
+Tab elim_doublon(Tab T) {   //pour nombre positif
 	int i,j;
 	for(i=0;i<T.taille;i++) {
 		j=i+1;
@@ -249,10 +249,11 @@ int main() {
 	affiche_tableau(monTab);
 	*/
 	
-	printf("\n");
+	printf("\n");/*
 	Tab sansD;
 	sansD=elim_doublon(Ttrie);
 	affiche_tableau(sansD);
+	* */
 	
 	
 	
